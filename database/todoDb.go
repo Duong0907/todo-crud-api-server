@@ -9,7 +9,7 @@ import (
 
 const (
 	dbuser = "root"
-	dbpass = "09072003Tpl@msql"
+	dbpass = "********"
 	dbname = "todo"
 )
 
