@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"time"
+	"os"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -16,11 +17,11 @@ var ctx context.Context
 var cancel context.CancelFunc
 
 func Connect() (error) {
-	const uri = "mongodb+srv://Duong:09072003Tpl@cluster0.aszqp6w.mongodb.net/?retryWrites=true&w=majority"
+	mongodbURL := os.Getenv("MONGODB_UR")
 
 	ctx, cancel = context.WithTimeout(context.Background(), 10*time.Second)
 	var err error
-	Client, err = mongo.NewClient(options.Client().ApplyURI(uri))
+	Client, err = mongo.NewClient(options.Client().ApplyURI(mongodbURL))
 	if err != nil {
 		return err
 	}
