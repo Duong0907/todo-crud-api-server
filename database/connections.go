@@ -6,6 +6,7 @@ import (
 	"time"
 	"os"
 
+	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
@@ -13,12 +14,15 @@ import (
 
 var Client *mongo.Client
 var ctx context.Context
-
 var cancel context.CancelFunc
 
 func Connect() (error) {
-	mongodbURL := os.Getenv("MONGODB_UR")
-
+	
+	if err := godotenv.Load(".env"); err != nil {
+		return err
+	}
+	mongodbURL := os.Getenv("MONGODB_URL")
+	fmt.Println(mongodbURL)
 	ctx, cancel = context.WithTimeout(context.Background(), 10*time.Second)
 	var err error
 	Client, err = mongo.NewClient(options.Client().ApplyURI(mongodbURL))

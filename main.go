@@ -23,5 +23,5 @@ func main() {
 	router := gin.Default()
 	router.Use(middleware.CorsMiddleware)
 	route.Setup(router)
-	router.Run(":" + port)
+	router.Run("localhost:" + port)
 }
